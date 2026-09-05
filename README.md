@@ -310,8 +310,8 @@ Deploying HOMNIQ AI to Vercel takes under 2 minutes:
    * Click **Deploy**.
    * Vercel will install Python packages from `requirements.txt` and launch the serverless function.
 5. **Verify the Live Deployment**:
-   * Test the health check endpoint: `https://<your-project>.vercel.app/api/health`
-   * Test the web UI: `https://<your-project>.vercel.app/`
+   * Test the health check endpoint: `https://<https://homniq-ai-intelligent-house-price-p>.vercel.app/api/health`
+   * Test the web UI: `https://homniq-ai-intelligent-house-price-p.vercel.app//`
 
 ---
 
@@ -355,7 +355,11 @@ Before final sign-off, verify:
 - [x] Ready for 1-click deployment on Vercel via `vercel.json`.
 
 ---
+Author
 
+Shiza Eman
+
+BS Artificial Intelligence Student
 ## 📄 License
 
 This project is open-source under the [MIT License](LICENSE).
