@@ -1,5 +1,5 @@
 # HOMNIQ AI — Intelligent House Price Prediction
-
+Live DEMO : https://homniq-ai-intelligent-house-price-p.vercel.app/
 ![HOMNIQ AI Banner](https://img.shields.io/badge/HOMNIQ%20AI-Production%20ML-8B5CF6?style=for-the-badge&logo=fastapi&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=flat-square&logo=fastapi&logoColor=white)
 ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.6+-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
