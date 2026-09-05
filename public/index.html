@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Sidebar Backdrop for Mobile -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
   <!-- App Layout Wrapper -->
   <div class="app-layout">
 
@@ -27,6 +30,9 @@
           <span class="brand-name">HOMNIQ <span class="brand-ai">AI</span></span>
           <span class="brand-tagline">Real Estate Intelligence</span>
         </div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
 
       <nav class="sidebar-nav">
@@ -54,6 +60,13 @@
       </nav>
 
       <div class="sidebar-footer">
+        <div class="sidebar-theme-wrap">
+          <button type="button" class="sidebar-theme-btn" id="sidebarThemeBtn" aria-label="Toggle Theme">
+            <span class="sidebar-theme-icon" id="sidebarThemeIcon">☀️</span>
+            <span class="sidebar-theme-text" id="sidebarThemeText">Switch to Light Theme</span>
+          </button>
+        </div>
+
         <div class="model-badge-card">
           <div class="badge-status-dot pulse"></div>
           <div class="badge-content">
@@ -70,7 +83,7 @@
       <!-- Top Header Navigation -->
       <header class="top-nav">
         <div class="top-nav-left">
-          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
           <div class="top-titles">
@@ -80,10 +93,20 @@
         </div>
 
         <div class="top-nav-right">
+          <!-- Theme Switcher Pill -->
+          <button type="button" class="theme-toggle-pill" id="themeToggleBtn" aria-label="Toggle Light / Dark Theme" title="Toggle Theme (Light / Dark)">
+            <div class="toggle-icon-wrap">
+              <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </div>
+            <span class="theme-toggle-text" id="themeToggleText">Light Theme</span>
+          </button>
+
           <div class="status-indicator-pill" id="healthStatusPill">
             <span class="indicator-dot active" id="healthDot"></span>
             <span class="indicator-text" id="healthText">Model Ready</span>
           </div>
+
           <a href="#prediction-workspace" class="cta-header-btn">
             <span>New Valuation</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -421,6 +444,10 @@
                 </div>
 
                 <div class="result-actions">
+                  <button type="button" class="copy-valuation-btn" id="copyValuationBtn" title="Copy valuation summary to clipboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span id="copyBtnText">Copy Valuation</span>
+                  </button>
                   <button type="button" class="recalculate-btn" id="recalculateBtn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                     <span>Reset &amp; Evaluate Another</span>

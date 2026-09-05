@@ -1,19 +1,30 @@
 /**
  * HOMNIQ AI — Front-End Application Logic
  * Communicates with FastAPI backend for health and real-time ML inference
+ * Includes Theme Controller (Light / Dark Mode), Responsive Drawer & Copy Helpers
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Theme Switching Elements
+  const themeToggleBtn = document.getElementById("themeToggleBtn");
+  const themeToggleText = document.getElementById("themeToggleText");
+  const sidebarThemeBtn = document.getElementById("sidebarThemeBtn");
+  const sidebarThemeText = document.getElementById("sidebarThemeText");
+  const sidebarThemeIcon = document.getElementById("sidebarThemeIcon");
+
   // DOM Elements
   const form = document.getElementById("predictionForm");
   const predictBtn = document.getElementById("predictBtn");
   const btnSpinner = document.getElementById("btnSpinner");
   const resetFormBtn = document.getElementById("resetFormBtn");
   const recalculateBtn = document.getElementById("recalculateBtn");
+  const copyValuationBtn = document.getElementById("copyValuationBtn");
+  const copyBtnText = document.getElementById("copyBtnText");
   const formErrorBanner = document.getElementById("formErrorBanner");
   const errorMessageText = document.getElementById("errorMessageText");
 
   // Result States
+  const resultPanel = document.getElementById("resultPanel");
   const resultIdleState = document.getElementById("resultIdleState");
   const resultLoadingState = document.getElementById("resultLoadingState");
   const resultActiveState = document.getElementById("resultActiveState");
@@ -21,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const latencyDisplay = document.getElementById("latencyDisplay");
   const summaryPills = document.getElementById("summaryPills");
 
-  // Inputs
+  // Form Inputs
   const overallQualInput = document.getElementById("OverallQual");
   const overallQualRange = document.getElementById("OverallQualRange");
   const qualDescriptor = document.getElementById("qualDescriptor");
@@ -38,8 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const healthDot = document.getElementById("healthDot");
   const healthText = document.getElementById("healthText");
 
-  // Mobile Navigation
+  // Mobile Navigation Elements
   const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const sidebarCloseBtn = document.getElementById("sidebarCloseBtn");
+  const sidebarBackdrop = document.getElementById("sidebarBackdrop");
   const sidebar = document.getElementById("sidebar");
 
   // Presets
@@ -47,7 +60,131 @@ document.addEventListener("DOMContentLoaded", () => {
   const presetSuburban = document.getElementById("presetSuburban");
   const presetLuxury = document.getElementById("presetLuxury");
 
-  // Quality Descriptors Map
+  // Cache for last successful prediction
+  let lastPredictedFormatted = "$0.00";
+  let lastPayloadData = null;
+
+  // =========================================================================
+  // Theme Management (Light / Dark Mode)
+  // =========================================================================
+  const THEME_STORAGE_KEY = "homniq_theme_mode";
+
+  function applyTheme(theme) {
+    const isLight = theme === "light";
+    document.documentElement.setAttribute("data-theme", isLight ? "light" : "dark");
+    
+    // Update top nav toggle button
+    if (themeToggleText) {
+      themeToggleText.textContent = isLight ? "Dark Theme" : "Light Theme";
+    }
+    if (themeToggleBtn) {
+      themeToggleBtn.setAttribute("aria-label", isLight ? "Switch to Dark Theme" : "Switch to Light Theme");
+      themeToggleBtn.setAttribute("title", isLight ? "Switch to Dark Theme" : "Switch to Light Theme");
+    }
+
+    // Update sidebar toggle button
+    if (sidebarThemeText) {
+      sidebarThemeText.textContent = isLight ? "Switch to Dark Theme" : "Switch to Light Theme";
+    }
+    if (sidebarThemeIcon) {
+      sidebarThemeIcon.textContent = isLight ? "🌙" : "☀️";
+    }
+
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch (e) {
+      // Ignore private mode storage errors
+    }
+  }
+
+  function getInitialTheme() {
+    try {
+      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+      if (savedTheme === "light" || savedTheme === "dark") {
+        return savedTheme;
+      }
+    } catch (e) {}
+
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+      return "light";
+    }
+    return "dark";
+  }
+
+  // Initialize theme
+  let currentTheme = getInitialTheme();
+  applyTheme(currentTheme);
+
+  function toggleTheme() {
+    currentTheme = currentTheme === "light" ? "dark" : "light";
+    applyTheme(currentTheme);
+  }
+
+  if (themeToggleBtn) themeToggleBtn.addEventListener("click", toggleTheme);
+  if (sidebarThemeBtn) sidebarThemeBtn.addEventListener("click", toggleTheme);
+
+  // Listen for OS system theme changes if user hasn't explicitly set preference
+  if (window.matchMedia) {
+    window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
+      try {
+        if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+          currentTheme = e.matches ? "light" : "dark";
+          applyTheme(currentTheme);
+        }
+      } catch (err) {}
+    });
+  }
+
+  // =========================================================================
+  // Mobile Sidebar Drawer Navigation
+  // =========================================================================
+  function openSidebar() {
+    if (sidebar) sidebar.classList.add("open");
+    if (sidebarBackdrop) sidebarBackdrop.classList.add("active");
+    document.body.style.overflow = window.innerWidth <= 768 ? "hidden" : "";
+  }
+
+  function closeSidebar() {
+    if (sidebar) sidebar.classList.remove("open");
+    if (sidebarBackdrop) sidebarBackdrop.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openSidebar();
+    });
+  }
+
+  if (sidebarCloseBtn) {
+    sidebarCloseBtn.addEventListener("click", closeSidebar);
+  }
+
+  if (sidebarBackdrop) {
+    sidebarBackdrop.addEventListener("click", closeSidebar);
+  }
+
+  // Close sidebar on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sidebar && sidebar.classList.contains("open")) {
+      closeSidebar();
+    }
+  });
+
+  // Nav link click smooth scroll and close drawer on mobile
+  const navLinks = document.querySelectorAll(".sidebar-nav .nav-link");
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.forEach((l) => l.classList.remove("active"));
+      link.classList.add("active");
+      closeSidebar();
+    });
+  });
+
+  // =========================================================================
+  // Quality Descriptor & Stepper
+  // =========================================================================
   const qualityMap = {
     1: "Very Poor (1/10)",
     2: "Poor (2/10)",
@@ -61,9 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
     10: "Very Excellent (10/10)"
   };
 
-  /**
-   * Sync Range Slider & Number Input for Overall Quality
-   */
   function updateQualityUI(value) {
     const val = Math.min(10, Math.max(1, parseInt(value, 10) || 5));
     overallQualInput.value = val;
@@ -79,31 +213,11 @@ document.addEventListener("DOMContentLoaded", () => {
     updateQualityUI(e.target.value);
   });
 
-  // Initial Quality UI update
   updateQualityUI(overallQualInput.value);
 
-  /**
-   * Mobile Sidebar Toggle
-   */
-  if (mobileMenuBtn && sidebar) {
-    mobileMenuBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("open");
-    });
-
-    document.addEventListener("click", (e) => {
-      if (
-        sidebar.classList.contains("open") &&
-        !sidebar.contains(e.target) &&
-        !mobileMenuBtn.contains(e.target)
-      ) {
-        sidebar.classList.remove("open");
-      }
-    });
-  }
-
-  /**
-   * Check Backend Health Endpoint
-   */
+  // =========================================================================
+  // Check Backend Health Endpoint
+  // =========================================================================
   async function checkBackendHealth() {
     try {
       const response = await fetch("/api/health");
@@ -130,9 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   checkBackendHealth();
 
-  /**
-   * Preset Handlers
-   */
+  // =========================================================================
+  // Preset Handlers
+  // =========================================================================
   function applyPreset(values) {
     updateQualityUI(values.OverallQual);
     grLivAreaInput.value = values.GrLivArea;
@@ -143,7 +257,6 @@ document.addEventListener("DOMContentLoaded", () => {
     bedroomAbvGrInput.value = values.BedroomAbvGr;
     lotAreaInput.value = values.LotArea;
 
-    // Clear any previous error banner
     hideError();
   }
 
@@ -192,9 +305,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /**
-   * Error Handling Helpers
-   */
+  // =========================================================================
+  // Error Handling Helpers
+  // =========================================================================
   function showError(msg) {
     errorMessageText.textContent = msg;
     formErrorBanner.style.display = "flex";
@@ -204,17 +317,17 @@ document.addEventListener("DOMContentLoaded", () => {
     formErrorBanner.style.display = "none";
   }
 
-  /**
-   * Smooth Animated Counter for Price
-   */
-  function animatePriceCount(targetValue, formattedFinal, durationMs = 1200) {
+  // =========================================================================
+  // Smooth Animated Counter for Price
+  // =========================================================================
+  function animatePriceCount(targetValue, formattedFinal, durationMs = 1100) {
     const startTime = performance.now();
 
     function updateCounter(currentTime) {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / durationMs, 1);
 
-      // Ease out cubic
+      // Smooth ease-out cubic
       const easeOut = 1 - Math.pow(1 - progress, 3);
       const currentValue = targetValue * easeOut;
 
@@ -230,9 +343,9 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(updateCounter);
   }
 
-  /**
-   * Form Submission Handler
-   */
+  // =========================================================================
+  // Form Submission & Inference Handler
+  // =========================================================================
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     hideError();
@@ -289,7 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Exact feature order payload
+    // Exact feature order payload required by the trained model
     const payload = {
       OverallQual: overallQual,
       GrLivArea: grLivArea,
@@ -300,6 +413,8 @@ document.addEventListener("DOMContentLoaded", () => {
       BedroomAbvGr: bedroomAbvGr,
       LotArea: lotArea
     };
+
+    lastPayloadData = payload;
 
     // 2. Transition Result Panel to Loading State
     resultIdleState.style.display = "none";
@@ -336,6 +451,8 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error("Prediction returned unsuccessful status.");
       }
 
+      lastPredictedFormatted = result.formatted_price;
+
       // 3. Render Results
       resultLoadingState.style.display = "none";
       resultActiveState.style.display = "flex";
@@ -357,9 +474,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Animate price counter
       animatePriceCount(result.predicted_price, result.formatted_price);
 
-      // On mobile, smooth scroll to result panel
-      if (window.innerWidth < 992) {
-        resultActiveState.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      // On mobile & small laptops, smooth scroll result panel into view
+      if (window.innerWidth < 992 && resultPanel) {
+        resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
     } catch (err) {
@@ -374,9 +491,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /**
-   * Reset Form & Return to Idle State
-   */
+  // =========================================================================
+  // Copy Valuation Summary to Clipboard
+  // =========================================================================
+  if (copyValuationBtn) {
+    copyValuationBtn.addEventListener("click", async () => {
+      if (!lastPayloadData) return;
+
+      const summaryText = `🏠 HOMNIQ AI Valuation: ${lastPredictedFormatted}\n` +
+        `• Overall Quality: ${lastPayloadData.OverallQual}/10\n` +
+        `• Living Area: ${lastPayloadData.GrLivArea.toLocaleString()} sq ft\n` +
+        `• Garage: ${lastPayloadData.GarageCars} cars\n` +
+        `• Basement: ${lastPayloadData.TotalBsmtSF.toLocaleString()} sq ft\n` +
+        `• Year Built: ${lastPayloadData.YearBuilt}\n` +
+        `• Bathrooms: ${lastPayloadData.FullBath} | Bedrooms: ${lastPayloadData.BedroomAbvGr}\n` +
+        `• Lot Area: ${lastPayloadData.LotArea.toLocaleString()} sq ft\n` +
+        `Evaluated using verified scikit-learn LinearRegression model (R² = 0.9724).`;
+
+      try {
+        await navigator.clipboard.writeText(summaryText);
+        copyValuationBtn.classList.add("copied");
+        if (copyBtnText) copyBtnText.textContent = "Copied to Clipboard!";
+
+        setTimeout(() => {
+          copyValuationBtn.classList.remove("copied");
+          if (copyBtnText) copyBtnText.textContent = "Copy Valuation";
+        }, 2200);
+      } catch (err) {
+        console.warn("[HOMNIQ AI] Clipboard copy failed:", err);
+        if (copyBtnText) copyBtnText.textContent = "Press Ctrl+C to copy";
+      }
+    });
+  }
+
+  // =========================================================================
+  // Reset Form & Return to Idle State
+  // =========================================================================
   function resetAll() {
     form.reset();
     updateQualityUI(7);
@@ -394,6 +544,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resultLoadingState.style.display = "none";
     resultIdleState.style.display = "flex";
     displayPrice.textContent = "$0.00";
+    lastPayloadData = null;
   }
 
   if (resetFormBtn) resetFormBtn.addEventListener("click", resetAll);
@@ -403,16 +554,4 @@ document.addEventListener("DOMContentLoaded", () => {
       overallQualInput.focus();
     });
   }
-
-  // Smooth Navigation Links highlighting
-  const navLinks = document.querySelectorAll(".sidebar-nav .nav-link");
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.forEach((l) => l.classList.remove("active"));
-      link.classList.add("active");
-      if (sidebar && sidebar.classList.contains("open")) {
-        sidebar.classList.remove("open");
-      }
-    });
-  });
 });
