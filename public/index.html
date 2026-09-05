@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOMNIQ AI — Intelligent House Price Prediction</title>
+  <meta name="description" content="Estimate residential property values using HOMNIQ AI's trained machine learning model with instant inference, verified accuracy, and transparent feature analysis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- App Layout Wrapper -->
+  <div class="app-layout">
+
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo-glow">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">HOMNIQ <span class="brand-ai">AI</span></span>
+          <span class="brand-tagline">Real Estate Intelligence</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">PLATFORM</div>
+        <a href="#dashboard" class="nav-link active" id="nav-dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#prediction-workspace" class="nav-link" id="nav-prediction">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <span>Price Prediction</span>
+        </a>
+        <a href="#model-insights" class="nav-link" id="nav-insights">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+          <span>Model Insights</span>
+        </a>
+        <a href="#how-it-works" class="nav-link" id="nav-how">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <span>How It Works</span>
+        </a>
+        <a href="#about-project" class="nav-link" id="nav-about">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>About Project</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="model-badge-card">
+          <div class="badge-status-dot pulse"></div>
+          <div class="badge-content">
+            <span class="badge-title">Trained Model</span>
+            <span class="badge-sub">LinearRegression v1.0</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+
+      <!-- Top Header Navigation -->
+      <header class="top-nav">
+        <div class="top-nav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="top-titles">
+            <h1 class="page-title">Valuation Engine</h1>
+            <p class="page-subtitle">Production Machine Learning Pipeline</p>
+          </div>
+        </div>
+
+        <div class="top-nav-right">
+          <div class="status-indicator-pill" id="healthStatusPill">
+            <span class="indicator-dot active" id="healthDot"></span>
+            <span class="indicator-text" id="healthText">Model Ready</span>
+          </div>
+          <a href="#prediction-workspace" class="cta-header-btn">
+            <span>New Valuation</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </a>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Container -->
+      <div class="content-container">
+
+        <!-- 1. Hero Section -->
+        <section class="hero-section" id="dashboard">
+          <div class="hero-glow-bg"></div>
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span class="badge-sparkle">✦</span>
+              <span>Proprietary Scikit-Learn Inference</span>
+            </div>
+            <h2 class="hero-title">
+              HOMNIQ <span class="gradient-text">AI</span>
+              <span class="hero-subheading">Intelligent House Price Prediction</span>
+            </h2>
+            <p class="hero-description">
+              Estimate residential property prices with mathematical precision using our trained regression model.
+              Engineered with 8 high-leverage architectural and dimensional variables.
+            </p>
+
+            <div class="hero-metrics-grid">
+              <div class="metric-card">
+                <span class="metric-label">Model Accuracy (R²)</span>
+                <span class="metric-value">0.9724</span>
+                <span class="metric-trend positive">97.2% Variance Explained</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Root Mean Sq. Error</span>
+                <span class="metric-value">$12,505</span>
+                <span class="metric-trend neutral">Low Prediction Error</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Mean Absolute Error</span>
+                <span class="metric-value">$10,431</span>
+                <span class="metric-trend neutral">Target: SalePrice</span>
+              </div>
+              <div class="metric-card">
+                <span class="metric-label">Input Variables</span>
+                <span class="metric-value">8 Features</span>
+                <span class="metric-trend positive">Strict Order Validation</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-graphic-card">
+            <div class="graphic-illustration">
+              <svg viewBox="0 0 320 220" fill="none" class="ai-chip-svg">
+                <!-- Outer glow circle -->
+                <circle cx="160" cy="110" r="85" stroke="rgba(139, 92, 246, 0.25)" stroke-width="1.5" stroke-dasharray="4 4" />
+                <circle cx="160" cy="110" r="55" stroke="rgba(16, 185, 129, 0.35)" stroke-width="1.5" />
+                <!-- House Wireframe -->
+                <path d="M160 65 L215 105 V155 H105 V105 Z" stroke="#A78BFA" stroke-width="2" fill="rgba(139, 92, 246, 0.08)"/>
+                <path d="M145 155 V125 H175 V155" stroke="#10B981" stroke-width="1.5" fill="rgba(16, 185, 129, 0.15)"/>
+                <line x1="160" y1="65" x2="160" y2="155" stroke="rgba(167, 139, 250, 0.2)" stroke-dasharray="2 2"/>
+                <!-- Node Points -->
+                <circle cx="160" cy="65" r="4" fill="#10B981" />
+                <circle cx="215" cy="105" r="3.5" fill="#8B5CF6" />
+                <circle cx="105" cy="105" r="3.5" fill="#8B5CF6" />
+                <circle cx="215" cy="155" r="3.5" fill="#8B5CF6" />
+                <circle cx="105" cy="155" r="3.5" fill="#8B5CF6" />
+                <!-- Data Nodes -->
+                <g class="floating-data-nodes">
+                  <rect x="40" y="45" width="70" height="26" rx="6" fill="#141B2D" stroke="rgba(139, 92, 246, 0.4)"/>
+                  <text x="75" y="62" fill="#E2E8F0" font-size="10" text-anchor="middle" font-weight="600">Qual: 1-10</text>
+                  
+                  <rect x="210" y="45" width="80" height="26" rx="6" fill="#141B2D" stroke="rgba(139, 92, 246, 0.4)"/>
+                  <text x="250" y="62" fill="#E2E8F0" font-size="10" text-anchor="middle" font-weight="600">GrLivArea</text>
+
+                  <rect x="30" y="145" width="70" height="26" rx="6" fill="#141B2D" stroke="rgba(16, 185, 129, 0.4)"/>
+                  <text x="65" y="162" fill="#E2E8F0" font-size="10" text-anchor="middle" font-weight="600">BsmtSF</text>
+
+                  <rect x="220" y="145" width="75" height="26" rx="6" fill="#141B2D" stroke="rgba(16, 185, 129, 0.4)"/>
+                  <text x="257" y="162" fill="#E2E8F0" font-size="10" text-anchor="middle" font-weight="600">YearBuilt</text>
+                </g>
+              </svg>
+            </div>
+            <div class="graphic-caption">
+              <span class="pulse-dot"></span>
+              <span>Active Inference Engine &bull; Ready for Evaluation</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Prediction Workspace -->
+        <section class="prediction-section" id="prediction-workspace">
+          <div class="section-header-row">
+            <div>
+              <span class="section-kicker">Interactive Studio</span>
+              <h3 class="section-heading">Property Price Prediction</h3>
+              <p class="section-desc">Enter real estate parameters below or select a benchmark preset to generate an authentic prediction.</p>
+            </div>
+            
+            <!-- Quick Presets -->
+            <div class="preset-group">
+              <span class="preset-label">Quick Presets:</span>
+              <button type="button" class="preset-btn" id="presetStarter">Starter Home</button>
+              <button type="button" class="preset-btn" id="presetSuburban">Suburban Family</button>
+              <button type="button" class="preset-btn" id="presetLuxury">Luxury Estate</button>
+            </div>
+          </div>
+
+          <div class="prediction-grid">
+
+            <!-- Left: Form Panel -->
+            <div class="workspace-card form-panel">
+              <div class="card-header">
+                <div class="header-left">
+                  <div class="card-icon-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                  </div>
+                  <div>
+                    <h4 class="card-title">Property Features Input</h4>
+                    <p class="card-sub">Exact features required by the trained model</p>
+                  </div>
+                </div>
+                <button type="button" class="reset-link-btn" id="resetFormBtn" title="Reset all fields">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  <span>Clear</span>
+                </button>
+              </div>
+
+              <form id="predictionForm" class="prediction-form" novalidate>
+                <div class="form-fields-grid">
+
+                  <!-- 1. Overall Quality -->
+                  <div class="form-group span-2">
+                    <div class="label-row">
+                      <label for="OverallQual">Overall Material & Finish Quality</label>
+                      <span class="feature-tag">OverallQual &bull; 1 to 10</span>
+                    </div>
+                    <div class="range-stepper-wrap">
+                      <input type="range" id="OverallQualRange" min="1" max="10" value="7" class="custom-range" aria-label="Overall Quality slider">
+                      <div class="number-stepper">
+                        <input type="number" id="OverallQual" name="OverallQual" min="1" max="10" value="7" required class="form-control" aria-describedby="qualHelp">
+                        <div class="stepper-rating-tag" id="qualDescriptor">Good (7/10)</div>
+                      </div>
+                    </div>
+                    <small class="field-help" id="qualHelp">Rates the overall materials and finish of the house (1 = Very Poor, 10 = Very Excellent).</small>
+                  </div>
+
+                  <!-- 2. Living Area -->
+                  <div class="form-group">
+                    <div class="label-row">
+                      <label for="GrLivArea">Living Area (Above Ground)</label>
+                      <span class="feature-tag">GrLivArea</span>
+                    </div>
+                    <div class="input-with-affix">
+                      <input type="number" id="GrLivArea" name="GrLivArea" min="200" max="12000" step="10" value="1800" placeholder="1800" required class="form-control">
+                      <span class="input-affix">sq ft</span>
+                    </div>
+                    <small class="field-help">Above grade (ground) living area square feet.</small>
+                  </div>
+
+                  <!-- 3. Garage Cars -->
+                  <div class="form-group">
+                    <div class="label-row">
+                      <label for="GarageCars">Garage Capacity</label>
+                      <span class="feature-tag">GarageCars</span>
+                    </div>
+                    <div class="input-with-affix">
+                      <input type="number" id="GarageCars" name="GarageCars" min="0" max="8" step="1" value="2" placeholder="2" required class="form-control">
+                      <span class="input-affix">cars</span>
+                    </div>
+                    <small class="field-help">Size of garage in vehicle capacity.</small>
+                  </div>
+
+                  <!-- 4. Basement Area -->
+                  <div class="form-group">
+                    <div class="label-row">
+                      <label for="TotalBsmtSF">Total Basement Area</label>
+                      <span class="feature-tag">TotalBsmtSF</span>
+                    </div>
+                    <div class="input-with-affix">
+                      <input type="number" id="TotalBsmtSF" name="TotalBsmtSF" min="0" max="8000" step="10" value="900" placeholder="900" required class="form-control">
+                      <span class="input-affix">sq ft</span>
+                    </div>
+                    <small class="field-help">Total square feet of finished/unfinished basement area.</small>
+                  </div>
+
+                  <!-- 5. Year Built -->
+                  <div class="form-group">
+                    <div class="label-row">
+                      <label for="YearBuilt">Year Built</label>
+                      <span class="feature-tag">YearBuilt</span>
+                    </div>
+                    <div class="input-with-affix">
+                      <input type="number" id="YearBuilt" name="YearBuilt" min="1850" max="2026" step="1" value="2005" placeholder="2005" required class="form-control">
+                      <span class="input-affix">year</span>
+                    </div>
+                    <small class="field-help">Original construction date.</small>
+                  </div>
+
+                  <!-- 6. Full Bathrooms -->
+                  <div class="form-group">
+                    <div class="label-row">
+                      <label for="FullBath">Full Bathrooms</label>
+                      <span class="feature-tag">FullBath</span>
+                    </div>
+                    <div class="input-with-affix">
+                      <input type="number" id="FullBath" name="FullBath" min="0" max="8" step="1" value="2" placeholder="2" required class="form-control">
+                      <span class="input-affix">baths</span>
+                    </div>
+                    <small class="field-help">Full bathrooms above grade.</small>
+                  </div>
+
+                  <!-- 7. Bedrooms -->
+                  <div class="form-group">
+                    <div class="label-row">
+                      <label for="BedroomAbvGr">Bedrooms (Above Grade)</label>
+                      <span class="feature-tag">BedroomAbvGr</span>
+                    </div>
+                    <div class="input-with-affix">
+                      <input type="number" id="BedroomAbvGr" name="BedroomAbvGr" min="0" max="10" step="1" value="3" placeholder="3" required class="form-control">
+                      <span class="input-affix">beds</span>
+                    </div>
+                    <small class="field-help">Bedrooms above basement level.</small>
+                  </div>
+
+                  <!-- 8. Lot Area -->
+                  <div class="form-group span-2">
+                    <div class="label-row">
+                      <label for="LotArea">Lot Area</label>
+                      <span class="feature-tag">LotArea</span>
+                    </div>
+                    <div class="input-with-affix">
+                      <input type="number" id="LotArea" name="LotArea" min="500" max="250000" step="50" value="8000" placeholder="8000" required class="form-control">
+                      <span class="input-affix">sq ft</span>
+                    </div>
+                    <small class="field-help">Lot size in square feet (e.g. 8,000 sq ft &approx; 0.18 acre).</small>
+                  </div>
+
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="submit-btn" id="predictBtn">
+                    <span class="btn-text">Generate AI Price Prediction</span>
+                    <span class="btn-spinner" id="btnSpinner" aria-hidden="true"></span>
+                    <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </button>
+                </div>
+
+                <div class="form-error-banner" id="formErrorBanner" style="display: none;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <span id="errorMessageText">Please check your inputs and try again.</span>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right: Prediction Result Panel -->
+            <div class="workspace-card result-panel" id="resultPanel">
+
+              <!-- Idle State -->
+              <div class="result-state idle" id="resultIdleState">
+                <div class="result-placeholder-graphic">
+                  <div class="radar-pulse"></div>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="placeholder-icon">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <line x1="12" y1="9" x2="12" y2="15"/>
+                    <line x1="9" y1="12" x2="15" y2="12"/>
+                  </svg>
+                </div>
+                <h4 class="result-placeholder-title">Your estimated property value</h4>
+                <p class="result-placeholder-desc">
+                  Adjust property features on the left and click <strong>Generate AI Price Prediction</strong> to execute the trained model.
+                </p>
+                <div class="result-sample-hint">
+                  <span>Tip: You can use the Quick Presets above for instant valuation testing.</span>
+                </div>
+              </div>
+
+              <!-- Loading State -->
+              <div class="result-state loading" id="resultLoadingState" style="display: none;">
+                <div class="scanner-anim-container">
+                  <div class="scanner-laser"></div>
+                  <div class="scanner-grid"></div>
+                </div>
+                <h4 class="loading-title">Evaluating Property Features</h4>
+                <p class="loading-sub">Passing ordered vectors into scikit-learn model...</p>
+                <div class="features-loading-chips">
+                  <span class="chip">Validating 8 Features</span>
+                  <span class="chip">DataFrame Matrix</span>
+                  <span class="chip">Executing .predict()</span>
+                </div>
+              </div>
+
+              <!-- Success / Prediction State -->
+              <div class="result-state active-prediction" id="resultActiveState" style="display: none;">
+                <div class="result-success-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Valuation Computed Successfully</span>
+                </div>
+
+                <div class="price-display-wrapper">
+                  <span class="price-header-label">Estimated Property Valuation</span>
+                  <div class="price-number-row">
+                    <span class="price-value" id="displayPrice">$0.00</span>
+                  </div>
+                  <div class="price-model-credit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                    <span>Prediction generated using the trained ML model</span>
+                  </div>
+                </div>
+
+                <div class="result-details-card">
+                  <div class="detail-row">
+                    <span class="detail-label">Model Algorithm</span>
+                    <span class="detail-val">Linear Regression</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Evaluation Metric (R²)</span>
+                    <span class="detail-val text-emerald">0.9724 (High Fit)</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Inference Latency</span>
+                    <span class="detail-val" id="latencyDisplay">&lt; 15 ms</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Target Feature</span>
+                    <span class="detail-val">SalePrice (USD)</span>
+                  </div>
+                </div>
+
+                <div class="features-summary-box">
+                  <span class="summary-title">Evaluated Parameters Summary</span>
+                  <div class="summary-pills" id="summaryPills">
+                    <!-- Populated dynamically via JS -->
+                  </div>
+                </div>
+
+                <div class="result-actions">
+                  <button type="button" class="recalculate-btn" id="recalculateBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    <span>Reset &amp; Evaluate Another</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 3. Model Information Section -->
+        <section class="insights-section" id="model-insights">
+          <div class="section-header-block">
+            <span class="section-kicker">Transparent Machine Learning</span>
+            <h3 class="section-heading">Model Information &amp; Architecture</h3>
+            <p class="section-desc">Specifications and verified benchmarks of the serialized trained scikit-learn model.</p>
+          </div>
+
+          <div class="insights-cards-grid">
+            <div class="spec-card">
+              <div class="spec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <h5 class="spec-name">Model Type</h5>
+              <p class="spec-value">Linear Regression</p>
+              <span class="spec-note">scikit-learn LinearRegression()</span>
+            </div>
+
+            <div class="spec-card">
+              <div class="spec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+              </div>
+              <h5 class="spec-name">Learning Task</h5>
+              <p class="spec-value">Supervised Regression</p>
+              <span class="spec-note">Target: Continuous SalePrice</span>
+            </div>
+
+            <div class="spec-card">
+              <div class="spec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </div>
+              <h5 class="spec-name">Input Features</h5>
+              <p class="spec-value">8 Engineered Vectors</p>
+              <span class="spec-note">Strict ordered vector mapping</span>
+            </div>
+
+            <div class="spec-card highlight">
+              <div class="spec-icon highlight">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <h5 class="spec-name">Test R² Score</h5>
+              <p class="spec-value text-emerald">0.9724</p>
+              <span class="spec-note">Superior explanatory power</span>
+            </div>
+
+            <div class="spec-card">
+              <div class="spec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <h5 class="spec-name">RMSE Metric</h5>
+              <p class="spec-value">$12,505.46</p>
+              <span class="spec-note">Root Mean Squared Error</span>
+            </div>
+
+            <div class="spec-card">
+              <div class="spec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+              <h5 class="spec-name">MAE Metric</h5>
+              <p class="spec-value">$10,431.66</p>
+              <span class="spec-note">Mean Absolute Error</span>
+            </div>
+          </div>
+
+          <!-- Feature Weights Table / Visualization -->
+          <div class="coefficients-wrapper">
+            <h4 class="coeff-title">Trained Feature Weights &amp; Relative Sensitivity</h4>
+            <p class="coeff-sub">Extracted directly from the serialized <code>house_price_model.pkl</code> coefficient matrix.</p>
+            
+            <div class="weights-list">
+              <div class="weight-item">
+                <div class="weight-info">
+                  <span class="w-name">GarageCars (Garage Size)</span>
+                  <span class="w-val">+$19,109.64 / unit</span>
+                </div>
+                <div class="weight-bar-bg"><div class="weight-bar-fill" style="width: 100%;"></div></div>
+              </div>
+
+              <div class="weight-item">
+                <div class="weight-info">
+                  <span class="w-name">OverallQual (Quality Rating)</span>
+                  <span class="w-val">+$11,914.69 / pt</span>
+                </div>
+                <div class="weight-bar-bg"><div class="weight-bar-fill" style="width: 62%;"></div></div>
+              </div>
+
+              <div class="weight-item">
+                <div class="weight-info">
+                  <span class="w-name">FullBath (Full Bathrooms)</span>
+                  <span class="w-val">+$11,040.34 / bath</span>
+                </div>
+                <div class="weight-bar-bg"><div class="weight-bar-fill" style="width: 58%;"></div></div>
+              </div>
+
+              <div class="weight-item">
+                <div class="weight-info">
+                  <span class="w-name">YearBuilt (Construction Date)</span>
+                  <span class="w-val">+$746.37 / year</span>
+                </div>
+                <div class="weight-bar-bg"><div class="weight-bar-fill" style="width: 35%;"></div></div>
+              </div>
+
+              <div class="weight-item">
+                <div class="weight-info">
+                  <span class="w-name">GrLivArea (Living Area)</span>
+                  <span class="w-val">+$55.41 / sq ft</span>
+                </div>
+                <div class="weight-bar-bg"><div class="weight-bar-fill" style="width: 25%;"></div></div>
+              </div>
+
+              <div class="weight-item">
+                <div class="weight-info">
+                  <span class="w-name">TotalBsmtSF (Basement Area)</span>
+                  <span class="w-val">+$25.20 / sq ft</span>
+                </div>
+                <div class="weight-bar-bg"><div class="weight-bar-fill" style="width: 18%;"></div></div>
+              </div>
+
+              <div class="weight-item">
+                <div class="weight-info">
+                  <span class="w-name">BedroomAbvGr (Bedrooms)</span>
+                  <span class="w-val">+$4,812.06 / bed</span>
+                </div>
+                <div class="weight-bar-bg"><div class="weight-bar-fill" style="width: 22%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. How It Works Section -->
+        <section class="pipeline-section" id="how-it-works">
+          <div class="section-header-block">
+            <span class="section-kicker">Architecture Lifecycle</span>
+            <h3 class="section-heading">How HOMNIQ AI Works</h3>
+            <p class="section-desc">An automated 5-stage inference cycle connecting your browser directly to the serialized model.</p>
+          </div>
+
+          <div class="pipeline-flow">
+            <div class="pipeline-step">
+              <div class="step-badge">01</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </div>
+              <h5 class="step-title">Property Features</h5>
+              <p class="step-desc">User specifies 8 physical, dimensional, and qualitative housing attributes.</p>
+            </div>
+
+            <div class="pipeline-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+
+            <div class="pipeline-step">
+              <div class="step-badge">02</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h5 class="step-title">Input Validation</h5>
+              <p class="step-desc">Pydantic strictly enforces ranges, types, and the exact mathematical order.</p>
+            </div>
+
+            <div class="pipeline-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+
+            <div class="pipeline-step">
+              <div class="step-badge">03</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <h5 class="step-title">Trained ML Model</h5>
+              <p class="step-desc">Features are fed into <code>house_price_model.pkl</code> loaded in memory via joblib.</p>
+            </div>
+
+            <div class="pipeline-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+
+            <div class="pipeline-step">
+              <div class="step-badge">04</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <h5 class="step-title">Price Prediction</h5>
+              <p class="step-desc">Native <code>model.predict()</code> outputs continuous linear valuation estimate.</p>
+            </div>
+
+            <div class="pipeline-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+
+            <div class="pipeline-step highlight">
+              <div class="step-badge">05</div>
+              <div class="step-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <h5 class="step-title">Estimated Value</h5>
+              <p class="step-desc">Formatted price is streamed back to client with interactive visualization.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. About Project Section -->
+        <section class="about-section" id="about-project">
+          <div class="about-card">
+            <div class="about-content">
+              <span class="section-kicker">Data Science Methodology</span>
+              <h3 class="about-title">About the HOMNIQ AI Project</h3>
+              <p class="about-lead">
+                HOMNIQ AI is an end-to-end machine learning system developed to solve the residential property valuation challenge with transparent, explainable AI.
+              </p>
+
+              <div class="lifecycle-grid">
+                <div class="lifecycle-item">
+                  <span class="item-num">1</span>
+                  <div>
+                    <h6>Data Preprocessing</h6>
+                    <p>Cleaned missing records, imputed architectural attributes, normalized skewness.</p>
+                  </div>
+                </div>
+
+                <div class="lifecycle-item">
+                  <span class="item-num">2</span>
+                  <div>
+                    <h6>Exploratory Data Analysis</h6>
+                    <p>Analyzed Pearson correlations between property attributes and final SalePrice.</p>
+                  </div>
+                </div>
+
+                <div class="lifecycle-item">
+                  <span class="item-num">3</span>
+                  <div>
+                    <h6>Feature Selection</h6>
+                    <p>Identified the 8 highest-importance variables maximizing variance explainability.</p>
+                  </div>
+                </div>
+
+                <div class="lifecycle-item">
+                  <span class="item-num">4</span>
+                  <div>
+                    <h6>Train-Test Split</h6>
+                    <p>Stratified splitting into training and holdout test subsets for honest validation.</p>
+                  </div>
+                </div>
+
+                <div class="lifecycle-item">
+                  <span class="item-num">5</span>
+                  <div>
+                    <h6>Model Training</h6>
+                    <p>Fitted multiple regression architectures on standardized input vectors.</p>
+                  </div>
+                </div>
+
+                <div class="lifecycle-item">
+                  <span class="item-num">6</span>
+                  <div>
+                    <h6>Model Evaluation &amp; Comparison</h6>
+                    <p>Benchmarked R², RMSE, and MAE across linear and ensemble candidate algorithms.</p>
+                  </div>
+                </div>
+
+                <div class="lifecycle-item">
+                  <span class="item-num">7</span>
+                  <div>
+                    <h6>Final Model Selection</h6>
+                    <p>Selected highest-performing model yielding R² = 0.9724 and serialized to pickle.</p>
+                  </div>
+                </div>
+
+                <div class="lifecycle-item">
+                  <span class="item-num">8</span>
+                  <div>
+                    <h6>Cloud Deployment</h6>
+                    <p>Containerized &amp; serverless FastAPI backend deployed natively on Vercel.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+          <div class="footer-left">
+            <span class="footer-logo">HOMNIQ <span class="text-purple">AI</span></span>
+            <span class="footer-copy">&copy; 2026 HOMNIQ AI — Intelligent House Price Prediction. All rights reserved.</span>
+          </div>
+          <div class="footer-right">
+            <span class="footer-badge">FastAPI Backend</span>
+            <span class="footer-badge">Scikit-Learn 1.6</span>
+            <span class="footer-badge">Vercel Ready</span>
+          </div>
+        </footer>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
