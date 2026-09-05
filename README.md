@@ -1,5 +1,5 @@
 # HOMNIQ AI — Intelligent House Price Prediction
-Live DEMO : https://homniq-ai-intelligent-house-price-p.vercel.app/
+
 ![HOMNIQ AI Banner](https://img.shields.io/badge/HOMNIQ%20AI-Production%20ML-8B5CF6?style=for-the-badge&logo=fastapi&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=flat-square&logo=fastapi&logoColor=white)
 ![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.6+-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
@@ -7,6 +7,7 @@ Live DEMO : https://homniq-ai-intelligent-house-price-p.vercel.app/
 ![Accuracy](https://img.shields.io/badge/R%C2%B2%20Score-0.9724-10B981?style=flat-square)
 
 Live DEMO : https://homniq-ai-intelligent-house-price-p.vercel.app/
+
 A production-grade, responsive AI SaaS web application for residential real estate valuation powered by a trained **Linear Regression** model (`house_price_model.pkl`), built with **FastAPI** on the backend and modern vanilla **HTML5, CSS3, and JavaScript** on the frontend, pre-configured for seamless serverless deployment on **Vercel**.
 
 ---
