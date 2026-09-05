@@ -6,6 +6,7 @@ Live DEMO : https://homniq-ai-intelligent-house-price-p.vercel.app/
 ![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=flat-square&logo=vercel&logoColor=white)
 ![Accuracy](https://img.shields.io/badge/R%C2%B2%20Score-0.9724-10B981?style=flat-square)
 
+Live DEMO : https://homniq-ai-intelligent-house-price-p.vercel.app/
 A production-grade, responsive AI SaaS web application for residential real estate valuation powered by a trained **Linear Regression** model (`house_price_model.pkl`), built with **FastAPI** on the backend and modern vanilla **HTML5, CSS3, and JavaScript** on the frontend, pre-configured for seamless serverless deployment on **Vercel**.
 
 ---
